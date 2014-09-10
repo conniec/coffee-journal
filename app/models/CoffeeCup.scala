@@ -11,30 +11,49 @@ import java.util.{Date}
 
 case class CoffeeCup(
     name: String, 
+    roaster: Option[String],
+    roastDate: Date,
     producer: Option[String], 
     brewDate: Date,
+    price: Int,
     rating: Int)
 
 object CoffeeCup {
   
   def all(): List[CoffeeCup] = Nil
   
-  def create(name: String, producer: String) {
-    val c = CoffeeCup(name, Option(producer), new Date(), 2)
+  def create(name: String, 
+             roaster: String,
+             roastDate: Date,
+             producer: String,
+             brewDate: Date,
+             price: Int,
+             rating: Int) {
+    
+    val c = CoffeeCup(name, 
+                      Option(roaster),
+                      roastDate,
+                      Option(producer), 
+                      brewDate,
+                      price,
+                      rating)
   }
   
   def delete(id: Long) {}
 
-        /**
+  /**
    * Parse a Computer from a ResultSet
    */
   val simple = {
     get[Pk[Long]]("coffee.id") ~
     get[String]("coffee.name") ~
+    get[Option[String]]("coffee.roaster") ~
+    get[Date]("coffee.roast_date") ~
     get[Option[String]]("coffee.producer") ~
     get[Date]("coffee.brew_date") ~
+    get[Int]("coffee.price") ~
     get[Int]("coffee.rating") map {
-      case id~name~producer~brew_date~rating => CoffeeCup(name, producer, brew_date, rating)
+      case id~name~roaster~roast_date~producer~brew_date~price~rating => CoffeeCup(name, roaster, roast_date, producer, brew_date, price, rating)
     }
   }
 
