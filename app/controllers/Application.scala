@@ -42,7 +42,7 @@ object Application extends Controller {
         //println(coffee_cup.data)
         // CoffeeCup.create(name, producer)
 
-        val coffee = CoffeeCup("sample", Option("Ritual"), new Date(), Option("Kenya"), new Date(), 2, 4)
+        val coffee = CoffeeCup("sample3", Option("Ritual"), new Date(), Option("Kenya"), new Date(), 2, 4, Map[String, Int]("stone_fruit" -> 1, "bitter" -> 2))
         // println(name)
         // println(producer)
         // println(rating)
