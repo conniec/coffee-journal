@@ -8,9 +8,16 @@ $(function() {
 
         $.ajax({
             type: "POST",
-            url: "/newCoffee",
+            url: "/coffee/add",
             data: data,
             dataType: "json"
+        })
+        .done(function() {
+            alert( "success" );
+        })
+        .always(function() {
+            // Redirect to the list
+            window.location.href = "all";
         });
 
     }

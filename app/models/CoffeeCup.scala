@@ -23,8 +23,9 @@ case class CoffeeCup(
 
 object CoffeeCup {
   
-  def all(): List[CoffeeCup] = Nil
-  
+  /**
+   * Create a CoffeeCup
+   */
   def create(name: String, 
              roaster: String,
              roastDate: Date,
@@ -34,7 +35,6 @@ object CoffeeCup {
              rating: Int,
              flavors: Map[String, Int]) {
     
-
     val c = CoffeeCup(name, 
                       Option(roaster),
                       roastDate,
@@ -46,6 +46,7 @@ object CoffeeCup {
   }
   
   def delete(id: Long) {}
+
 
   /**
    * Parse a Computer from a ResultSet
@@ -70,44 +71,6 @@ object CoffeeCup {
     }
   }
 
-
-  // /**
-  //  * Return a page of (Computer,Company).
-  //  *
-  //  * @param page Page to display
-  //  * @param pageSize Number of computers per page
-  //  * @param orderBy Computer property used for sorting
-  //  * @param filter Filter applied on the name column
-  //  */
-  // def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Page[(Computer, Option[Company])] = {
-    
-  //   val offest = pageSize * page
-    
-  //   DB.withConnection { implicit connection =>
-      
-  //     val coffees = SQL(
-  //       """
-  //         select * from coffee 
-  //       """
-  //     ).on(
-  //     )
-
-  //     // val totalRows = SQL(
-  //     //   """
-  //     //     select count(*) from computer 
-  //     //     left join company on computer.company_id = company.id
-  //     //     where computer.name like {filter}
-  //     //   """
-  //     // ).on(
-  //     //   'filter -> filter
-  //     // ).as(scalar[Long].single)
-
-  //     Page(computers, page, offest, totalRows)
-      
-  //   }
-    
-  // }
-
   /**
    * Retrieve list of coffees
    */
@@ -121,6 +84,7 @@ object CoffeeCup {
         .as(CoffeeCup.simple *)
     }
   }
+
 
   /**
    * Retrieve a coffee cup from the name.
