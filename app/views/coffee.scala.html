@@ -1,23 +1,12 @@
-@(tasks: List[CoffeeCup], taskForm: Form[CoffeeCup])
+@(coffee: Option[CoffeeCup])
+
+
+<!-- @(coffee: Option[CoffeeCup]) -->
 
 @import helper._
 
-@main("Todo list") {
+@main("Welcome to Coffee Journal") {
     
-    <h1>@tasks.size task(s)</h1>
+    @coffee
     
-
-    
-    <h2>Add a new cup of coffee</h2>
-    
-    @form(routes.Application.newCoffee) {
-        
-        @inputText(taskForm("name")) 
-        
-        @inputText(taskForm("producer")) 
-        
-        <input type="submit" value="Submit">
-        
-    }
-    
-}
+} 

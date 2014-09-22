@@ -108,12 +108,31 @@ object CoffeeCup {
     
   // }
 
-    /**
-   * Retrieve a computer from the id.
+  /**
+   * Retrieve list of coffees
    */
-  def findById(name: String): Option[CoffeeCup] = {
+  def list(filter: String = "%"): Seq[CoffeeCup] = {
     DB.withConnection { implicit connection =>
-      SQL("select * from coffee where name = {name} limit 1").on('name -> name).as(CoffeeCup.simple.singleOpt)
+      SQL(
+        """
+          select * from coffee
+        """)
+        .on()
+        .as(CoffeeCup.simple *)
+    }
+  }
+
+  /**
+   * Retrieve a coffee cup from the name.
+   */
+  def findByName(name: String): Option[CoffeeCup] = {
+    DB.withConnection { implicit connection =>
+      SQL(
+        """
+          select * from coffee where name = {name} limit 1
+        """)
+        .on('name -> name)
+        .as(CoffeeCup.simple.singleOpt)
     }
   }
 
@@ -121,16 +140,13 @@ object CoffeeCup {
   /**
    * Insert a new cup of coffee.
    *
-   * @param coffee The computer values.
+   * @param coffee The coffee cup values.
    */
   def insert(coffee: CoffeeCup) = {
     println("Inserting")
 
     val flavorsObj = Json.toJson(coffee.flavors)
     val flavorsJson = Json.stringify(flavorsObj)
-
-    println(flavorsJson)
-
 
     DB.withConnection { implicit connection =>
       SQL(
